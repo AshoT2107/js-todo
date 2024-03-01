@@ -1,9 +1,9 @@
 // JavaScript code
+let a = 1;
+
 function insertUser() {
   var fullName = document.getElementById("inputFullName").value;
-  console.log(fullName);
   var phone = document.getElementById("inputPhone").value;
-  var user = new User(fullName, phone);
 
   if (fullName == "" || phone == "") {
     Swal.fire({
@@ -13,22 +13,31 @@ function insertUser() {
       confirmButtonText: "OK",
     });
   } else {
-    userQoshish(user);
+    addRow(fullName, phone);
     document.getElementById("inputFullName").value = "";
     document.getElementById("inputPhone").value = "";
   }
 }
 
-function userQoshish(user) {
+function addRow(fullName, phone) {
   const newRow = document.createElement("tr");
-
+  newRow.classList.add("col");
   newRow.innerHTML = `
-        <td>${user.fullName}</td>
-        <td>${user.phone}</td>
+        <td>${fullName}</td>
+        <td>${phone}</td>
         <td>${new Date().toLocaleString()}</td>
-        <td><button style="background: red; border-radius: 5px; color: white; padding: 10px 60px"  onclick="deleteRow(this)">Remove</button></td>`;
+        <td><button id = "${a}-action" onclick="deleteRow(this)">Remove</button></td>`;
+
 
   document.getElementById("userTableBody").appendChild(newRow);
+
+  var removeButton = document.getElementById(`${a++}-action`);
+  removeButton.style.background = "red"; 
+  removeButton.style.borderRadius = "5px"; 
+  removeButton.style.color = "white"; 
+  removeButton.style.padding =" 10px 25px";
+
+  document.querySelectorAll("td").forEach(x=>x.style.padding = "8px");
 }
 
 function deleteRow(button) {
@@ -45,16 +54,10 @@ function deleteRow(button) {
       button.closest("tr").remove();
       Swal.fire({
         title: "Deleted!",
-        text: "Your file has been deleted.",
+        text: "Your infomation has been deleted.",
         icon: "success",
       });
     }
   });
 }
 
-class User {
-  constructor(fullName, phone) {
-    this.fullName = fullName;
-    this.phone = phone;
-  }
-}

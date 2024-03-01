@@ -37,7 +37,7 @@ function addRow(fullName, phone) {
   removeButton.style.color = "white"; 
   removeButton.style.padding =" 10px 25px";
 
-  document.querySelectorAll("td").forEach(x=>x.style.padding = "8px");
+  document.querySelectorAll("td").forEach(x=>x.style.padding = "0.5rem");
 }
 
 function deleteRow(button) {
